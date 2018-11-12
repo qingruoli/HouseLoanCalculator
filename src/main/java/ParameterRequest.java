@@ -25,12 +25,10 @@ public class ParameterRequest {
         return str;
     }
 
-    public static void main(String[] args) throws IOException {
+    private void writeSameAll(){
         String pay_method =  "same_all" ;
-        // pay_method =  "same_base";
-
         try {
-            File file = new File("javaio-appendfile.csv");
+            File file = new File("same_all.csv");
             // if file doesnt exists, then create it
             if (file.exists()) {
                 file.delete();
@@ -41,7 +39,7 @@ public class ParameterRequest {
             fileWritter.write("\"贷款总额\",\"贷款年数\",\"贷款月供\",\"贷款年供\",\"每年比贷1年少还\",\"贷款利息\",\"前10年还贷\",\"10-15年还贷\",\"15-20年还贷\",\"20-25年还贷\",\"贷款总额\"\r\n");
             double lastYearPerMonth = 0.0;
             for (int year1 = 11; year1 <= 25; year1++) {
-                int com_amount = 37;
+                int com_amount = 35;
                 double fund_amount = 0;
                 double com_rate_percent = 4.90;
                 double fund_rate_percent = 4.00;
@@ -77,5 +75,27 @@ public class ParameterRequest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void writeSameBase(){
+        String pay_method =  "same_base";
+        File file = new File("same_base.csv");
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+            System.err.println(file.getAbsolutePath());
+            FileWriter fileWritter = new FileWriter(file.getName(), true);
+            fileWritter.write("\"贷款总额\",\"贷款年数\",\"\",\"贷款年供\",\"每年比贷1年少还\",\"贷款利息\",\"前10年还贷\",\"10-15年还贷\",\"15-20年还贷\",\"20-25年还贷\",\"贷款总额\"\r\n");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        ParameterRequest req = new ParameterRequest();
+        req.writeSameAll();
+
     }
 }
